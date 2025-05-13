@@ -1,0 +1,126 @@
+﻿@page
+@model Web.Pages.Eventos.AgregarModel
+@{
+    ViewData["Title"] = "Agregar Evento";
+}
+
+<h1>Agregar Evento</h1>
+<div class="container">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.nombreEvento">Nombre del evento</label>
+                <input class="form-control" asp-for="evento.nombreEvento">
+                <span class="text-danger" asp-validation-for="evento.nombreEvento"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.descripcion">Descripción</label>
+                <input class="form-control" asp-for="evento.descripcion">
+                <span class="text-danger" asp-validation-for="evento.descripcion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.fecha">Fecha del evento</label>
+                <input class="form-control" id="fecha" asp-for="evento.fecha" type="date">
+                <span class="text-danger" asp-validation-for="evento.fecha"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.horaInicio">Hora de Inicio</label>
+                <input class="form-control" id="horaInicio" asp-for="evento.horaInicio" type="time">
+                <span class="text-danger" asp-validation-for="evento.horaInicio"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.horaFin">Hora de Finalización</label>
+                <input class="form-control" id="horaFin" asp-for="evento.horaFin" type="time">
+                <span class="text-danger" asp-validation-for="evento.horaFin"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.fkTipoEvento">Tipo de evento</label>
+                <select class="form-control" asp-for="evento.fkTipoEvento" asp-items="Model.tipoEvento">
+                    <option value="">Seleccione un tipo de evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="evento.fkTipoEvento"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.fkUbicacion">Ubicación del evento</label>
+                <select class="form-control" asp-for="evento.fkUbicacion" asp-items="Model.ubicacion">
+                    <option value="">Seleccione una ubicación</option>
+                </select>
+                <span class="text-danger" asp-validation-for="evento.fkUbicacion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.fkNegocio">Promotora del evento</label>
+                <select class="form-control" asp-for="evento.fkNegocio" asp-items="Model.Negocio">
+                    <option value="">Seleccione la Promotora del evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="evento.fkNegocio"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="evento.fkServicios">Patrocinador del evento</label>
+                <select class="form-control" asp-for="evento.fkServicios" asp-items="Model.Servicios">
+                    <option value="">Seleccione el Patrocinador del evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="evento.fkServicios"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Imagen del Evento</label>
+                <input type="file" asp-for="ImagenFile" class="form-control" accept="image/*" />
+                <span class="text-danger" asp-validation-for="ImagenFile"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label>Vista previa de la imagen:</label>
+                <div id="imagePreviewContainer" class="d-flex justify-content-center align-items-center">
+                    <img id="imagePreview" src="" alt="Vista previa" class="img-fluid rounded-3" style="max-height: 250px; object-fit: cover; display: none;" />
+                </div>
+            </div>
+
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <a class="btn btn-primary" asp-page="./IndexADM">Volver</a>
+                <input type="submit" value="Agregar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Configuración de Flatpickr para la fecha
+        flatpickr("#fecha", {
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            minDate: "today",
+        });
+
+        // Configuración de Flatpickr para la hora de inicio
+        flatpickr("#horaInicio", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+        });
+
+        // Configuración de Flatpickr para la hora de fin
+        flatpickr("#horaFin", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+        });
+
+        // Vista previa de imagen seleccionada
+        document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

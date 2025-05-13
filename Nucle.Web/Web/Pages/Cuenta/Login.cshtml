@@ -1,0 +1,171 @@
+﻿@page
+@model Web.Pages.Cuenta.LoginModel
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+        .subhead {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            padding: 40px 0;
+            color: white;
+        }
+        .masthead-subheading {
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .masthead-heading {
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .page-section {
+            padding: 80px 0;
+        }
+        #principal {
+            background: #ffffff;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .section-heading {
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .section-subheading {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 40px;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            border-radius: 25px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+        .form-control:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-radius: 25px 0 0 25px;
+        }
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+            padding: 12px 0;
+            font-weight: bold;
+            border-radius: 25px;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2e59d9;
+        }
+        .alert {
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .d-grid {
+            margin-top: 20px;
+        }
+        .link-secondary {
+            font-size: 16px;
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .link-secondary:hover {
+            color: #4e73df;
+        }
+        .row hr {
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header class="subhead">
+        <div class="container text-center">
+            <div class="masthead-subheading">Live Music Fest</div>
+            <div class="masthead-heading">Los mejores eventos de Costa Rica</div>
+        </div>
+    </header>
+
+    <section class="page-section bg-light" id="principal">
+        <div class="container">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto bg-white p-2 p-md-5 rounded shadow">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Iniciar sesión</h2>
+                    <h3 class="section-subheading text-muted">Por favor ingrese sus credenciales.</h3>
+                </div>
+                <form method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-at"></i>
+                        </span>
+                        <input type="email" placeholder="Correo electrónico"
+                               asp-for="loginInfo.CorreoElectronico" class="form-control form-control-lg" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <span asp-validation-for="loginInfo.CorreoElectronico" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <i class="bi bi-key"></i>
+                        </span>
+                        <input type="password" placeholder="Contraseña"
+                               asp-for="loginInfo.Password" class="form-control form-control-lg" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <span asp-validation-for="loginInfo.Password" class="text-danger"></span>
+                    </div>
+                    @if (Model.token is not null && Model.token.ValidacionExitosa == false)
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            Credenciales incorrectas!
+                        </div>
+                    }
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+                    </div>
+                    <input type="hidden" asp-for="loginInfo.CorreoElectronico" />
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <hr class="mt-5 mb-4 border-secondary-subtle" />
+                        <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center">
+                            <a href="./registro" class="link-secondary text-decoration-none">Registrarse</a>
+                            <a href="#!" class="link-secondary text-decoration-none">Olvidó su contraseña</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

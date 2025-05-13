@@ -1,0 +1,41 @@
+﻿@page
+@model Web.Pages.Ubicacion.EditarModel
+@{
+}
+
+<h1>Editar Ubicación</h1>
+<div class="container">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto">
+        <form method="post">
+            <input type="hidden" asp-for="Ubicacion.idUbicacion" />
+
+            <div class="form-group">
+                <label class="control-label" asp-for="Ubicacion.nombreUbicacion">Nombre de la ubicación del evento</label>
+                <input class="form-control" asp-for="Ubicacion.nombreUbicacion">
+                <span class="text-danger" asp-validation-for="Ubicacion.nombreUbicacion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Ubicacion.direccion">Dirección del Evento</label>
+                <input class="form-control" asp-for="Ubicacion.direccion">
+                <span class="text-danger" asp-validation-for="Ubicacion.direccion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Ubicacion.capacidad">Capacidad de personas en el evento</label>
+                <input class="form-control" asp-for="Ubicacion.capacidad" type="number">
+                <span class="text-danger" asp-validation-for="Ubicacion.capacidad"></span>
+            </div>
+
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <a class="btn btn-primary" asp-page="./Index">Regresar</a>
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

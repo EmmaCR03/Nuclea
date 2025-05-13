@@ -1,0 +1,139 @@
+﻿@page
+@model Web.Pages.Eventos.EditarModel
+@{
+}
+
+<h1>Editar Evento</h1>
+<div class="container">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Evento.IdEvento" />
+            <input type="hidden" asp-for="Evento.ImagenUrl" />
+
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.nombreEvento">Nombre del evento</label>
+                <input class="form-control" asp-for="Evento.nombreEvento">
+                <span class="text-danger" asp-validation-for="Evento.nombreEvento"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.descripcion">Descripción del evento</label>
+                <input class="form-control" asp-for="Evento.descripcion">
+                <span class="text-danger" asp-validation-for="Evento.descripcion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.fecha">Fecha del evento</label>
+                <input class="form-control" id="fecha" asp-for="Evento.fecha" type="date">
+                <span class="text-danger" asp-validation-for="Evento.fecha"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.horaInicio">Hora de Inicio</label>
+                <input class="form-control" id="horaInicio" asp-for="Evento.horaInicio" type="time">
+                <span class="text-danger" asp-validation-for="Evento.horaInicio"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.horaFin">Hora de finalización</label>
+                <input class="form-control" id="horaFin" asp-for="Evento.horaFin" type="time">
+                <span class="text-danger" asp-validation-for="Evento.horaFin"></span>
+            </div>
+            <!-- Campos para TipoEvento y Ubicación -->
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.fkTipoEvento">Tipo de evento</label>
+                <select class="form-control" asp-for="Evento.fkTipoEvento" asp-items="Model.TipoEvento">
+                    <option value="">Seleccione un tipo de evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Evento.fkTipoEvento"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.fkUbicacion">Ubicación del evento</label>
+                <select class="form-control" asp-for="Evento.fkUbicacion" asp-items="Model.Ubicacion">
+                    <option value="">Seleccione una ubicación</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Evento.fkUbicacion"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.fkNegocio">Promotora del evento</label>
+                <select class="form-control" asp-for="Evento.fkNegocio" asp-items="Model.Negocio">
+                    <option value="">Seleccione una Promotora para el evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Evento.fkNegocio"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Evento.fkServicios">Patrocinador del evento</label>
+                <select class="form-control" asp-for="Evento.fkServicios" asp-items="Model.Servicios">
+                    <option value="">Seleccione el Patrocinador del evento</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Evento.fkServicios"></span>
+            </div>
+
+            <!-- Campo de URL de la imagen y vista previa -->
+            <div class="form-group mb-3">
+                <label class="form-label">Nueva imagen del evento</label>
+                <input type="file" asp-for="ImagenFile" class="form-control" accept="image/*" />
+                <small class="form-text text-muted"></small>
+                <span class="text-danger" asp-validation-for="ImagenFile"></span>
+            </div>
+
+            <!-- Vista previa de la imagen actual -->
+            <div class="form-group text-center">
+                <label>Imagen actual:</label>
+                <div id="imagePreviewContainer" class="d-flex justify-content-center align-items-center">
+                    @if (!string.IsNullOrEmpty(Model.Evento.ImagenUrl))
+                    {
+                        <img id="imagePreview" src="@Model.Evento.ImagenUrl" alt="Imagen actual" class="img-fluid rounded-3" style="max-height: 250px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay imagen cargada</p>
+                    }
+                </div>
+            </div>
+
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <a class="btn btn-primary" asp-page="./IndexADM">Regresar</a>
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        // Configuración de Flatpickr para la fecha
+        flatpickr("#fecha", {
+            enableTime: false, // Solo fecha
+            dateFormat: "Y-m-d", // Formato de fecha
+            minDate: "today", // Fecha mínima: hoy
+        });
+
+        // Configuración de Flatpickr para la hora de inicio
+        flatpickr("#horaInicio", {
+            enableTime: true, // Solo hora
+            noCalendar: true, // No mostrar calendario
+            dateFormat: "H:i", // Formato de hora
+            time_24hr: true, // Usar formato de 24 horas
+        });
+
+        // Configuración de Flatpickr para la hora de fin
+        flatpickr("#horaFin", {
+            enableTime: true, // Solo hora
+            noCalendar: true, // No mostrar calendario
+            dateFormat: "H:i", // Formato de hora
+            time_24hr: true, // Usar formato de 24 horas
+        });
+
+        // Función para actualizar la vista previa de la imagen cuando se edita la URL
+         document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    preview.alt = 'Nueva imagen seleccionada';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

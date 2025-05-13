@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Contacto] (
+    [idContacto]     UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [valor]          NVARCHAR (100)   NOT NULL,
+    [fkTipoContacto] UNIQUEIDENTIFIER NOT NULL,
+    [fkPersona]      UNIQUEIDENTIFIER NULL,
+    [fkNegocio]      UNIQUEIDENTIFIER NULL,
+    PRIMARY KEY CLUSTERED ([idContacto] ASC),
+    CHECK ([fkPersona] IS NOT NULL OR [fkNegocio] IS NOT NULL),
+    CHECK ([fkPersona] IS NOT NULL OR [fkNegocio] IS NOT NULL),
+    CHECK ([fkPersona] IS NOT NULL OR [fkNegocio] IS NOT NULL),
+    CHECK ([fkPersona] IS NOT NULL OR [fkNegocio] IS NOT NULL),
+    FOREIGN KEY ([fkNegocio]) REFERENCES [dbo].[Negocio] ([idNegocio]),
+    FOREIGN KEY ([fkNegocio]) REFERENCES [dbo].[Negocio] ([idNegocio]),
+    FOREIGN KEY ([fkNegocio]) REFERENCES [dbo].[Negocio] ([idNegocio]),
+    FOREIGN KEY ([fkNegocio]) REFERENCES [dbo].[Negocio] ([idNegocio]),
+    FOREIGN KEY ([fkPersona]) REFERENCES [dbo].[Persona] ([idPersona]),
+    FOREIGN KEY ([fkPersona]) REFERENCES [dbo].[Persona] ([idPersona]),
+    FOREIGN KEY ([fkPersona]) REFERENCES [dbo].[Persona] ([idPersona]),
+    FOREIGN KEY ([fkPersona]) REFERENCES [dbo].[Persona] ([idPersona]),
+    FOREIGN KEY ([fkTipoContacto]) REFERENCES [dbo].[TipoContacto] ([idTipoContacto]),
+    FOREIGN KEY ([fkTipoContacto]) REFERENCES [dbo].[TipoContacto] ([idTipoContacto]),
+    FOREIGN KEY ([fkTipoContacto]) REFERENCES [dbo].[TipoContacto] ([idTipoContacto]),
+    FOREIGN KEY ([fkTipoContacto]) REFERENCES [dbo].[TipoContacto] ([idTipoContacto])
+);
+

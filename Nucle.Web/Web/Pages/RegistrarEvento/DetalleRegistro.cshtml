@@ -1,0 +1,144 @@
+﻿@page "{id}"
+@model Web.Pages.RegistroEvento.DetalleRegistroModel
+@{
+    ViewData["Title"] = "Detalle de Registro";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">
+                        <i class="bi bi-card-checklist me-2"></i> Detalles de tu registro
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Detalle == null)
+                    {
+                        <div class="alert alert-danger">
+                            No se encontró información del registro solicitado.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="text-primary mb-3">Información del Evento</h4>
+                                <p><strong>Evento:</strong> @Model.Detalle.nombreEvento</p>
+                                <p><strong>Fecha:</strong> @Model.Detalle.fecha.ToString("dd/MM/yyyy")</p>
+                                <p><strong>Hora:</strong> @Model.Detalle.horaInicio.ToString(@"hh\:mm") - @Model.Detalle.horaFin.ToString(@"hh\:mm")</p>
+                                <p><strong>Ubicación:</strong> @Model.Detalle.nombreUbicacion</p>
+                                <p><strong>Descripción:</strong> @Model.Detalle.descripcion</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="text-primary mb-3">Tu Registro</h4>
+                                <p><strong>Nombre:</strong> @Model.Detalle.nombreUsuario</p>
+                                <p><strong>Fecha de registro:</strong> @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+
+                                @if (!string.IsNullOrEmpty(Model.Detalle.qr))
+                                {
+                                    <div class="mt-4">
+                                        <h5 class="text-primary">Código QR de acceso</h5>
+                                        <img src="data:image/png;base64,@Model.Detalle.qr"
+                                             alt="Código QR del registro"
+                                             class="img-fluid"
+                                             style="max-width: 200px;" />
+                                        <p class="text-muted mt-2">Presenta este código en la entrada del evento</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="/Eventos/Index" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left me-2"></i> Volver a eventos
+                        </a>
+
+                        <!-- Botón para descargar PDF -->
+                        <form method="post" asp-page-handler="DescargarPDF" asp-route-id="@Model.Detalle?.idEventoRegistrado">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-file-earmark-pdf me-2"></i> Descargar PDF
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            // Obtener el ID del registro de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = '@Model.Detalle?.idEventoRegistrado' || urlParams.get('id');
+
+            if (!id) {
+                alert('No se pudo obtener el ID del registro');
+                return;
+            }
+
+            // Mostrar spinner de carga
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generando PDF...';
+            btn.disabled = true;
+
+            // Hacer la petición al endpoint del PDF
+            fetch(`/api/RegistroEvento/${id}/pdf`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw err; });
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                // Crear enlace para descarga
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Registro_${id}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.error || 'Error al generar el PDF');
+            })
+            .finally(() => {
+                // Restaurar botón
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        });
+    </script>
+}
+
+<style>
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    strong {
+        color: #495057;
+    }
+
+    .card-footer .btn {
+        min-width: 150px;
+    }
+</style>

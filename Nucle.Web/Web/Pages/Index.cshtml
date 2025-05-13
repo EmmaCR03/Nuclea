@@ -1,0 +1,90 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio - Live Music Fest";
+}
+
+<div class="container text-center my-5">
+    <h1 class="display-4 text-primary fw-bold mb-4">¡Bienvenido a Live Music Fest!</h1>
+    <p class="lead text-dark mb-5">Descubre y gestiona los mejores conciertos y festivales. ¡Vive la música en vivo como nunca antes!</p>
+</div>
+
+<div class="container text-center my-5">
+    <h2 class="text-primary mb-4">¿Qué es Live Music Fest?</h2>
+    <p class="text-muted mb-5" style="font-size: 1.2rem; line-height: 1.6;">Live Music Fest es la plataforma ideal para los amantes de la música en vivo. Encuentra conciertos, festivales y eventos exclusivos donde podrás disfrutar de tus artistas favoritos en el mejor ambiente. ¡Únete y sé parte de la experiencia!</p>
+</div>
+
+<div id="carouselExample" class="carousel slide mx-auto" data-bs-ride="carousel" style="max-width: 80%; width: 100%;">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://th.bing.com/th/id/R.dc70bb6d9f25cfc0a65178920992d396?rik=IMNZk4FVRwYa7Q&pid=ImgRaw&r=0" class="d-block w-100 rounded-3" alt="Concierto 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bold text-white" style="font-size: 2rem;">Rock Night Festival</h5>
+                <p class="text-white" style="font-size: 1.25rem;">Siente la energía del mejor rock en vivo.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://img.freepik.com/premium-photo/crowd-silhouette-music-festival-concert-with-lights_162008-541.jpg" class="d-block w-100 rounded-3" alt="Concierto 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bold text-white" style="font-size: 2rem;">Electronic Beats</h5>
+                <p class="text-white" style="font-size: 1.25rem;">Baila toda la noche con los mejores DJs.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://eventfacilities.nl/wp-content/uploads/2018/02/Keunefeesten-TTM-Event-Facilities-7.jpg" class="d-block w-100 rounded-3" alt="Concierto 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bold text-white" style="font-size: 2rem;">Pop Live Experience</h5>
+                <p class="text-white" style="font-size: 1.25rem;">Vive la emoción de los éxitos del momento en vivo.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container my-5 text-center">
+    <h2 class="text-primary mb-4">Novedades en la Música</h2>
+    <h3 class="text-secondary">Top 100 Global de Spotify</h3>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZEVXbMDoHDwVN2tF?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<div class="container my-5">
+    <div class="row text-center align-items-stretch">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg p-4 h-100">
+                <h2 class="text-primary">Nuestra Misión</h2>
+                <p class="text-dark" style="font-size: 1.2rem; line-height: 1.8;">Ofrecer experiencias musicales inolvidables conectando a los fans con sus artistas favoritos en eventos únicos y llenos de emoción.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg p-4 h-100">
+                <h2 class="text-primary">Nuestra Visión</h2>
+                <p class="text-dark" style="font-size: 1.2rem; line-height: 1.8;">Convertirnos en la plataforma líder de conciertos y festivales, brindando acceso a los mejores espectáculos y experiencias para los amantes de la música en vivo.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center my-5">
+    <h2 class="text-primary mb-4">¡Contáctanos!</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <h5 class="text-dark">Teléfono</h5>
+            <p class="text-muted">+506 8888-5555</p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h5 class="text-dark">Instagram</h5>
+            <p class="text-muted">LiveMusicFest</p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h5 class="text-dark">Facebook</h5>
+            <p class="text-muted">LiveMusicFestCR</p>
+        </div>
+    </div>
+</div>

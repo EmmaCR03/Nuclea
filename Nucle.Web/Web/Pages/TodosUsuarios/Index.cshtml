@@ -1,0 +1,233 @@
+﻿@page
+@model Web.Pages.TodosUsuarios.IndexModel
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<style>
+    /* Estilos generales */
+    .users-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        color: #2c3e50;
+    }
+
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section .lead {
+            color: #7f8c8d;
+            font-size: 1.25rem;
+        }
+
+    /* Grid de usuarios */
+    .users-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Tarjeta de usuario */
+    .user-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 4px solid #3498db;
+    }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .user-avatar {
+        font-size: 3rem;
+        color: #3498db;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .user-info h3 {
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+    }
+
+    .user-info p {
+        color: #7f8c8d;
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Acciones */
+    .user-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-detail {
+        background-color: #3498db;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: background-color 0.3s;
+    }
+
+        .btn-detail:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+
+    .profile-selector {
+        position: relative;
+    }
+
+        .profile-selector select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1rem;
+        }
+
+        /* Estilo para el dropdown con scroll */
+        .profile-selector select {
+            max-height: 200px; /* Altura máxima antes de mostrar scroll */
+        }
+
+            .profile-selector select option {
+                padding: 0.5rem;
+            }
+
+            /* Estilo para el scroll en el dropdown */
+            .profile-selector select::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .profile-selector select::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 4px;
+            }
+
+            .profile-selector select::-webkit-scrollbar-thumb {
+                background: #3498db;
+                border-radius: 4px;
+            }
+
+                .profile-selector select::-webkit-scrollbar-thumb:hover {
+                    background: #2980b9;
+                }
+
+            .profile-selector select:focus {
+                outline: none;
+                border-color: #3498db;
+            }
+
+    /* Sin usuarios */
+    .no-users {
+        text-align: center;
+        padding: 3rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        color: #7f8c8d;
+    }
+
+        .no-users i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #bdc3c7;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .users-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .users-container {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="users-container">
+    <div class="header-section">
+        <h1><i class="bi bi-people-fill"></i> Gestión de Usuarios</h1>
+        <p class="lead">Administra los usuarios del sistema y sus perfiles</p>
+    </div>
+
+    @if (Model.usuarios != null && Model.usuarios.Any())
+    {
+        <div class="users-grid">
+            @foreach (var usuario in Model.usuarios)
+            {
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3>@usuario.NombreUsuario</h3>
+                        <p><i class="bi bi-envelope"></i> @usuario.CorreoElectronico</p>
+                        <p><i class="bi bi-person"></i> @usuario.Nombre @usuario.Apellido</p>
+                    </div>
+                    <div class="user-actions">
+                        <a class="btn btn-detail" asp-page="./Detalle" asp-route-id="@usuario.Id">
+                            <i class="bi bi-eye"></i> Ver Detalle
+                        </a>
+
+                        <div class="profile-selector">
+                            <form method="post" asp-page-handler="AsignarPerfil">
+                                <input type="hidden" name="IdUsuario" value="@usuario.Id" />
+                                <select class="form-select" name="IdPerfil" onchange="this.form.submit();" size="1">
+                                    <option selected disabled>Asignar perfil...</option>
+                                    @foreach (var perfil in Model.Perfiles)
+                                    {
+                                        <option value="@perfil.Id">@perfil.Nombre</option>
+                                    }
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-users">
+            <i class="bi bi-emoji-frown"></i>
+            <p>No hay usuarios registrados en el sistema</p>
+        </div>
+    }
+</div>

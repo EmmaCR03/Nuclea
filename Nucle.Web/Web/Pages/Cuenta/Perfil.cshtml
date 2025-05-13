@@ -1,0 +1,99 @@
+﻿@page
+@using System.Security.Claims
+@model Web.Pages.Cuenta.PerfilModel
+@{
+    ViewData["Title"] = "Perfil";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-perfil {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: linear-gradient(to right, #e0f7fa, #e0f2f1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .perfil-icono-cuenta {
+            font-size: 120px;
+            color: #00bcd4;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .nombre-usuario {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .email-usuario {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-cerrar-sesion {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background-color: #f44336;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-cerrar-sesion i {
+            margin-right: 10px;
+        }
+
+        .btn-cerrar-sesion:hover {
+            background-color: #c62828;
+        }
+
+
+        .no-autenticado {
+            font-size: 20px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<div class="container-perfil">
+    @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+    {
+        var emailClaim = HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+        <i class="fas fa-user-circle perfil-icono-cuenta"></i>
+        <div class="nombre-usuario">@User.Identity.Name</div>
+        <div class="email-usuario">@emailClaim</div>
+        <a class="btn-cerrar-sesion" asp-page="/cuenta/logout">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </a>
+    }
+    else
+    {
+        <i class="fas fa-user-slash perfil-icono-cuenta"></i>
+        <div class="no-autenticado">Usuario no autenticado</div>
+        <a class="btn-cerrar-sesion" asp-page="/cuenta/login">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+        </a>
+    }
+</div>

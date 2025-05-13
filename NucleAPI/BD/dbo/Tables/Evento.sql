@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Evento] (
+    [idEvento]     UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [nombreEvento] NVARCHAR (100)   NOT NULL,
+    [fecha]        DATE             NOT NULL,
+    [horaInicio]   TIME (7)         NOT NULL,
+    [horaFin]      TIME (7)         NOT NULL,
+    [descripcion]  NVARCHAR (MAX)   NULL,
+    [fkTipoEvento] UNIQUEIDENTIFIER NOT NULL,
+    [fkUbicacion]  UNIQUEIDENTIFIER NOT NULL,
+    [fkNegocio]    UNIQUEIDENTIFIER NULL,
+    [ImagenUrl]    NVARCHAR (MAX)   NULL,
+    [fkServicios]  UNIQUEIDENTIFIER NULL,
+    PRIMARY KEY CLUSTERED ([idEvento] ASC),
+    FOREIGN KEY ([fkTipoEvento]) REFERENCES [dbo].[TipoEvento] ([idTipoEvento]),
+    FOREIGN KEY ([fkTipoEvento]) REFERENCES [dbo].[TipoEvento] ([idTipoEvento]),
+    FOREIGN KEY ([fkTipoEvento]) REFERENCES [dbo].[TipoEvento] ([idTipoEvento]),
+    FOREIGN KEY ([fkTipoEvento]) REFERENCES [dbo].[TipoEvento] ([idTipoEvento]),
+    FOREIGN KEY ([fkUbicacion]) REFERENCES [dbo].[Ubicacion] ([idUbicacion]),
+    FOREIGN KEY ([fkUbicacion]) REFERENCES [dbo].[Ubicacion] ([idUbicacion]),
+    FOREIGN KEY ([fkUbicacion]) REFERENCES [dbo].[Ubicacion] ([idUbicacion]),
+    FOREIGN KEY ([fkUbicacion]) REFERENCES [dbo].[Ubicacion] ([idUbicacion]),
+    CONSTRAINT [FK_Evento_Negocio] FOREIGN KEY ([fkNegocio]) REFERENCES [dbo].[Negocio] ([idNegocio]),
+    CONSTRAINT [FK_Evento_Servicio] FOREIGN KEY ([fkServicios]) REFERENCES [dbo].[Servicios] ([idServicio])
+);
+

@@ -1,0 +1,98 @@
+﻿@page
+@model Web.Pages.Cuenta.AccesoDenegadoModel
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Denegado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+        .subhead {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            padding: 40px 0;
+            color: white;
+        }
+        .masthead-subheading {
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .masthead-heading {
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .page-section {
+            padding: 80px 0;
+        }
+        .section-heading {
+            font-size: 72px;
+            color: #4e73df;
+            font-weight: 700;
+        }
+        .section-subheading {
+            font-size: 24px;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .Denied {
+            transition: transform 0.3s ease-in-out;
+        }
+        .Denied:hover {
+            transform: scale(1.05);
+        }
+        .btn-back {
+            background-color: #1cc88a;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn-back:hover {
+            background-color: #17a673;
+        }
+    </style>
+</head>
+<body>
+    <header class="subhead">
+        <div class="container text-center">
+            <div class="masthead-subheading">SC-701: Programación Web Avanzada</div>
+            <div class="masthead-heading">Live Music Fest</div>
+        </div>
+    </header>
+
+    <section class="page-section bg-light text-center">
+        <h1 class="section-heading">403</h1>
+        <h2 class="section-subheading">Acceso Denegado</h2>
+        <div class="container py-5">
+            <img src="https://th.bing.com/th/id/R.58d09201c95f50934c56fdd1bf95c27f?rik=2x1DnFVAmybwWw&riu=http%3a%2f%2fulises.medynet.com%2facceso_denegado.jpg&ehk=amc7vttNqDeRb8ao6F7ufYUxLXcj6ywsHAkvYBIXstc%3d&risl=&pid=ImgRaw&r=0p" alt="Gandalf not pass" class="img-fluid rounded mx-auto d-block Denied" />
+            <br />
+            <a href="/" class="btn-back">Volver al Inicio</a>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

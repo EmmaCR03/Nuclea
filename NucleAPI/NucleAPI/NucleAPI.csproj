@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstracciones\**" />
+    <Content Remove="Abstracciones\**" />
+    <EmbeddedResource Remove="Abstracciones\**" />
+    <None Remove="Abstracciones\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autorizacion.Abstracciones" Version="2.0.6" />
+    <PackageReference Include="Autorizacion.DA" Version="2.0.6" />
+    <PackageReference Include="Autorizacion.Flujo" Version="2.0.6" />
+    <PackageReference Include="Autorizacion.Middleware" Version="2.0.6" />
+    <PackageReference Include="FluentAssertions" Version="8.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.4" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
+    <ProjectReference Include="..\AccesoADatos\AccesoADatos.csproj" />
+    <ProjectReference Include="..\Flujo\Flujo.csproj" />
+    <ProjectReference Include="..\Reglas\Reglas.csproj" />
+    <ProjectReference Include="..\Servicios\Servicios.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,84 @@
+﻿@page
+@model Web.Pages.TipoEvento.IndexModel
+@{
+    ViewData["Title"] = "Tipos de Evento";
+}
+
+<h1 class="display-4 text-center text-primary mb-5 animate__animated animate__fadeIn">Listado de Tipos de Evento</h1>
+
+<div class="container d-flex justify-content-center" style="margin-bottom: 25px;">
+    <a type="button" class="btn btn-primary btn-lg shadow-lg px-4 py-2 rounded-pill" asp-page="./Agregar">
+        <i class="bi bi-plus-circle me-2"></i> Agregar Tipo de Evento
+    </a>
+</div>
+
+<div class="row">
+    @if (Model.tipoEventos != null && Model.tipoEventos.Any())
+    {
+        @foreach (var tipo in Model.tipoEventos)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-lg border-0 rounded-3 event-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary mb-3">
+                            <strong>@tipo.nombre</strong>
+                        </h5>
+
+                        <div class="d-flex flex-column gap-2">
+                            <a type="button" class="btn btn-outline-primary w-100" asp-page="./Detalle" asp-route-id="@tipo.idTipoEvento">
+                                <i class="bi bi-eye me-2"></i> Ver Detalle
+                            </a>
+                            <a type="button" class="btn btn-warning w-100" asp-page="./Editar" asp-route-id="@tipo.idTipoEvento">
+                                <i class="bi bi-pencil-square me-2"></i> Editar
+                            </a>
+                            <a type="button" class="btn btn-danger w-100" asp-page="./Eliminar" asp-route-id="@tipo.idTipoEvento">
+                                <i class="bi bi-trash3 me-2"></i> Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center text-muted">No hay tipos de evento registrados.</p>
+    }
+</div>
+
+<style>
+    .event-card {
+        background: linear-gradient(135deg, #f0f4f8, #ffffff);
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+        color: #1e3a8a;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+    .bi {
+        font-size: 1.3rem;
+    }
+</style>

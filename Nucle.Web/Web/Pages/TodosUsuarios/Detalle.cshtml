@@ -1,0 +1,259 @@
+﻿@page "{id:guid}"
+@model Web.Pages.TodosUsuarios.DetalleModel
+@{
+    ViewData["Title"] = "✨ Detalle de Usuario";
+}
+
+<style>
+    :root {
+        --color-primario: #e74c3c;
+        --color-secundario: #3498db;
+        --color-detalle: #f1c40f;
+    }
+
+    body {
+        background-color: #f9f9f9;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .user-detail-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1rem;
+    }
+
+    .user-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+        .user-header h2 {
+            font-weight: 800;
+            color: var(--color-primario);
+            font-size: 2.3rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+            .user-header h2::after {
+                content: '';
+                position: absolute;
+                width: 70%;
+                height: 4px;
+                background: linear-gradient(90deg, var(--color-primario), var(--color-detalle));
+                bottom: -10px;
+                left: 15%;
+                border-radius: 5px;
+            }
+
+    .user-card-detail {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        border-top: 5px solid var(--color-primario);
+        transition: all 0.3s ease;
+    }
+
+        .user-card-detail:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .user-avatar-detail {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+        .user-avatar-detail i {
+            font-size: 4.5rem;
+            color: var(--color-primario);
+            background: #fde8e8;
+            padding: 1.5rem;
+            border-radius: 50%;
+        }
+
+    .user-details {
+        padding: 0 1rem;
+    }
+
+    .detail-item {
+        display: flex;
+        margin-bottom: 1.2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px dashed #eee;
+        align-items: center;
+    }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        flex: 0 0 180px;
+        font-weight: 600;
+        color: #7f8c8d;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+    }
+
+        .detail-label i {
+            margin-right: 8px;
+            color: var(--color-secundario);
+            font-size: 1.1rem;
+        }
+
+    .detail-value {
+        flex: 1;
+        font-size: 1rem;
+        color: #2c3e50;
+        font-weight: 500;
+    }
+
+    .user-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-volver {
+        background: white;
+        color: var(--color-secundario);
+        border: 2px solid var(--color-secundario);
+        padding: 0.6rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+        .btn-volver:hover {
+            background: var(--color-secundario);
+            color: white;
+        }
+
+    .btn-eliminar {
+        background: white;
+        color: #e74c3c;
+        border: 2px solid #e74c3c;
+        padding: 0.6rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+        .btn-eliminar:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+    .not-found {
+        text-align: center;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        color: #e74c3c;
+        font-size: 1.1rem;
+    }
+
+        .not-found i {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+    @@media (max-width: 768px) {
+        .detail-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .detail-label {
+            flex: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+</style>
+
+<div class="user-detail-container">
+    <div class="user-header">
+        <h2><i class="bi bi-person-badge"></i> Detalle del Usuario</h2>
+    </div>
+
+    @if (Model.usuario != null)
+    {
+        <div class="user-card-detail">
+            <div class="user-avatar-detail">
+            </div>
+
+            <div class="user-details">
+                <div class="detail-item">
+                    <span class="detail-label"><i class="bi bi-person"></i> Nombre Usuario:</span>
+                    <span class="detail-value">@Model.usuario.NombreUsuario</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label"><i class="bi bi-envelope"></i> Correo Electrónico:</span>
+                    <span class="detail-value">@Model.usuario.CorreoElectronico</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label"><i class="bi bi-card-text"></i> Nombre:</span>
+                    <span class="detail-value">@Model.usuario.Nombre</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label"><i class="bi bi-card-text"></i> Apellido:</span>
+                    <span class="detail-value">@Model.usuario.Apellido</span>
+                </div>
+            </div>
+
+            <div class="user-actions">
+                <a asp-page="/TodosUsuarios/Index" class="btn-volver">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+
+                <form method="post" asp-page="/TodosUsuarios/Eliminar" class="d-inline" id="deleteForm">
+                    <input type="hidden" name="id" value="@Model.usuario.Id" />
+                    <button type="submit" class="btn-eliminar" id="deleteButton">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="not-found">
+            <i class="bi bi-emoji-frown"></i>
+            <p>No se encontró información del usuario</p>
+            <a asp-page="/TodosUsuarios/Index" class="btn-volver mt-3">
+                <i class="bi bi-arrow-left"></i> Volver al listado
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    // Confirmación antes de eliminar
+    document.getElementById('deleteButton')?.addEventListener('click', function (e) {
+        if (!confirm('¿Estás seguro de eliminar este usuario?')) {
+            e.preventDefault();
+        }
+    });
+</script>

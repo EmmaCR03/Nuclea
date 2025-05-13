@@ -1,0 +1,89 @@
+﻿@page
+@model Web.Pages.Eventos.EliminarModel
+@{
+    ViewData["Title"] = "Confirmar eliminación de evento";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Confirmar eliminación de evento
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <h5 class="alert-heading">¿Está seguro que desea eliminar este evento?</h5>
+                        <p class="mb-0">Esta acción no se puede deshacer. Todos los datos relacionados se perderán permanentemente.</p>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.evento.ImagenUrl))
+{
+    <div class="text-center mb-4">
+        <img src="@Model.evento.ImagenUrl" alt="Imagen del evento" class="img-fluid rounded-3" style="max-height: 250px; object-fit: cover;" />
+    </div>
+}
+                    <div class="evento-details mb-4">
+                        <h3 class="text-primary">@Html.DisplayFor(modelo => modelo.evento.nombreEvento)</h3>
+                        <p class="text-muted mb-3">@Html.DisplayFor(modelo => modelo.evento.descripcion)</p>
+
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">@Html.DisplayNameFor(modelo => modelo.evento.fecha):</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.fecha)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">@Html.DisplayNameFor(modelo => modelo.evento.horaInicio):</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.horaInicio)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">@Html.DisplayNameFor(modelo => modelo.evento.horaFin):</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.horaFin)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tipo de evento:</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.TipoEvento)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Ubicación:</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.Ubicacion)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Promotora del evento:</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.Negocio)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Patrocinador del evento:</span>
+                                <span class="detail-value">@Html.DisplayFor(modelo => modelo.evento.Servicios)</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-page="./IndexADM" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver al listado
+                        </a>
+
+                        <form method="post" asp-route-id="@Model.evento.IdEvento" class="mb-0">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt me-2"></i>Confirmar eliminación
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .evento-details {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        border-left: 4px solid #dc3545;
+    }
+</style>

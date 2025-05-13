@@ -1,0 +1,118 @@
+﻿@page
+@model Web.Pages.Eventos.DetalleModel
+@{
+    ViewData["Title"] = "Detalle del Evento";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="display-5 text-primary fw-bold">@Model.evento.nombreEvento</h1>
+                <div class="divider mx-auto bg-primary" style="height: 2px; width: 60px;"></div>
+            </div>
+
+            <div class="mb-4 rounded-3 overflow-hidden" style="background-color: #f8f9fa;">
+                @if (!string.IsNullOrEmpty(Model.evento.ImagenUrl))
+                {
+                    <img src="@Model.evento.ImagenUrl"
+                         alt="Imagen del Evento"
+                         class="img-fluid w-100 d-block"
+                         style="object-fit: contain; max-height: 500px; width: 100%; background-color: #f8f9fa;"
+                         onerror="this.src='https://placehold.co/800x400?text=Imagen+no+disponible'" />
+                }
+                else
+                {
+                    <div class="text-center py-5 bg-light">
+                        <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-2">No hay imagen disponible</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Contenido -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <!-- Descripción -->
+                    <div class="mb-4">
+                        <h3 class="h5 text-primary"><i class="bi bi-text-paragraph me-2"></i>Descripción</h3>
+                        <p class="mb-0">@Model.evento.descripcion</p>
+                    </div>
+
+                    <!-- Detalles en grid -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-calendar3 me-2"></i>Fecha</p>
+                                <p class="fw-semibold mb-0">@Model.evento.fecha.ToShortDateString()</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-clock me-2"></i>Horario</p>
+                                <p class="fw-semibold mb-0">@Model.evento.horaInicio.ToString(@"hh\:mm") - @Model.evento.horaFin.ToString(@"hh\:mm")</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-geo-alt me-2"></i>Ubicación</p>
+                                <p class="fw-semibold mb-0">@Model.evento.Ubicacion</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-tag me-2"></i>Tipo de evento</p>
+                                <p class="fw-semibold mb-0">@Model.evento.TipoEvento</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-tag me-2"></i>Promotora</p>
+                                <p class="fw-semibold mb-0">@Model.evento.Negocio</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <p class="mb-1 text-muted"><i class="bi bi-tag me-2"></i>Patrocinador</p>
+                                <p class="fw-semibold mb-0">@Model.evento.Servicios</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mt-4">
+                        <form method="post" class="w-100" style="max-width: 300px;">
+                            <input type="hidden" name="eventoId" value="@Model.evento.IdEvento" />
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                <i class="bi bi-check-circle me-2"></i>Registrarme
+                            </button>
+                        </form>
+                        <a asp-page="./Index" class="btn btn-outline-secondary w-100 py-2" style="max-width: 300px;">
+                            <i class="bi bi-arrow-left me-2"></i>Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .divider {
+        opacity: 0.7;
+    }
+
+    img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    .card {
+        border-radius: 0.5rem;
+    }
+</style>

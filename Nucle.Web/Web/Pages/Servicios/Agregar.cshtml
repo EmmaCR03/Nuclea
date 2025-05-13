@@ -1,0 +1,46 @@
+﻿@page
+@model Web.Pages.Servicios.AgregarModel
+@{
+    ViewData["Title"] = "Agregar Servicio";
+}
+
+<h1 class="display-4 text-center text-primary mb-4 animate__animated animate__fadeInDown">Agregar Nuevo Servicio</h1>
+
+<div class="container">
+    <form method="post" class="shadow-lg p-5 rounded-4 bg-light animate__animated animate__fadeIn">
+
+        <!-- Validación general -->
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-4">
+            <label asp-for="Servicios.nombreServicio" class="form-label">Nombre del Servicio</label>
+            <input asp-for="Servicios.nombreServicio" class="form-control" />
+            <span asp-validation-for="Servicios.nombreServicio" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Servicios.descripcion" class="form-label">Descripción</label>
+            <textarea asp-for="Servicios.descripcion" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Servicios.descripcion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Servicios.costo" class="form-label">Precio</label>
+            <input asp-for="Servicios.costo" class="form-control" type="number" step="0.01" />
+            <span asp-validation-for="Servicios.costo" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success px-5 py-2 rounded-pill shadow">
+                <i class="bi bi-check-circle me-2"></i>Guardar Servicio
+            </button>
+            <a asp-page="./IndexADM" class="btn btn-outline-secondary px-5 py-2 rounded-pill ms-3">
+                <i class="bi bi-arrow-left-circle me-2"></i>Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
