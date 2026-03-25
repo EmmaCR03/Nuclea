@@ -67,6 +67,8 @@ Hay proyectos **SQL Server Database** (`.sqlproj`) que definen tablas y procedim
 1. Crea (o restaura) la base **`EventosDB`** en tu instancia de SQL Server.
 2. Desde Visual Studio: clic derecho en el proyecto `.sqlproj` → **Publicar** y apunta a tu servidor y base de datos, **o** ejecuta los scripts generados según tu flujo de despliegue.
 
+**Script completo (opcional):** en `NucleAPI/BD/Scripts/NucleaDBEventos.sql` hay un volcado que crea la base **`EventosDB`** y el esquema. Está enlazado al proyecto **BD** en Visual Studio (carpeta *Scripts*). Si el `CREATE DATABASE` trae rutas fijas de archivos `.mdf`/`.ldf` de otra PC, edítalas o crea la base a mano y ejecuta solo la parte del script que aplica tablas y procedimientos.
+
 Las cadenas de conexión por defecto en los `appsettings` usan:
 
 - `Data Source=Localhost;Initial Catalog=EventosDB;Integrated Security=True;Encrypt=False`
